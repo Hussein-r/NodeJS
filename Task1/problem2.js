@@ -6,4 +6,4 @@ const data = JSON.parse(
 data.accidents.map(
   (item) => (item.date = moment(new Date(item.date)).format("YYYY-MM-DD"))
 );
-console.log(data);
+fs.writeFileSync("output2.json", JSON.stringify(data));

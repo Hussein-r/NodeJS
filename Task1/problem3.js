@@ -15,6 +15,16 @@ const securityQuestions = [
 
 // Complete this function to check if the answer to the question is valid or not and return a boolean
 function chksecurityQuestions(securityQuestions, question, ans) {
+  const secQuestion = securityQuestions.find(
+    (secQuestion) => secQuestion.question === question
+  );
+  if (secQuestion) {
+    if (secQuestion.expectedAnswer === ans) {
+      return true;
+    }
+    return false;
+  }
+
   // your code here true or false
 }
 
