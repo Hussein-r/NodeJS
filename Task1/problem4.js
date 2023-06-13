@@ -18,6 +18,8 @@ const students = [
 ];
 
 // complete this function to return the list of characters below 20 age
-function returnMinors(arr) {}
+function returnMinors(arr) {
+  return arr.filter((character) => character.age < 20);
+}
 
 console.log(returnMinors(students));
