@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
-async function getProductsData() {
+import "dotenv/config";
+const getProductsData = async function () {
   try {
     const response = await fetch(
       "https://api.escuelajs.co/api/v1/products?offset=10&limit=10"
@@ -9,9 +10,29 @@ async function getProductsData() {
   } catch (Error) {
     console.log(`Error!: ${Error}`);
   }
-}
+};
+const getExchangeRate = async function () {
+  let myHeaders = new Headers();
+  myHeaders.append("apikey", process.env.API_KEY);
 
-const getCategories = function (data) {
+  let requestOptions = {
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
+  };
+  try {
+    const response = await fetch(
+      "https://api.apilayer.com/exchangerates_data/convert?to=EGP&from=USD&amount=1",
+      requestOptions
+    );
+    const { result } = await response.json();
+    return result.toFixed(2);
+  } catch (Error) {
+    console.log(`Error!: ${Error}`);
+  }
+};
+
+const getGroupedProductsByCategory = function (data) {
   const categories = data.reduce((groupedProducts, product) => {
     const id = product.category.id;
     if (
@@ -29,4 +50,15 @@ const getCategories = function (data) {
   return JSON.stringify(categories, null, 2);
 };
 
-getProductsData().then(getCategories).then(console.log);
+const convertPriceToEGP = function (data) {
+  let products = data[1].map((product) => ({
+    ...product,
+    price: `${product.price * data[0]} EGP`,
+  }));
+  return products;
+};
+
+Promise.all([getExchangeRate(), getProductsData()])
+  .then(convertPriceToEGP)
+  .then(getGroupedProductsByCategory)
+  .then(console.log);
