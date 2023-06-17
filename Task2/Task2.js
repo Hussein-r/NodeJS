@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-import "dotenv/config";
 const getProductsData = async function () {
   try {
     const response = await fetch(
@@ -13,7 +12,7 @@ const getProductsData = async function () {
 };
 const getExchangeRate = async function () {
   let myHeaders = new Headers();
-  myHeaders.append("apikey", process.env.API_KEY);
+  myHeaders.append("apikey", "R0DZh807qLAzCY6zPIzI0L23JmJCPnqu");
 
   let requestOptions = {
     method: "GET",
