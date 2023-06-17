@@ -1,0 +1,19 @@
+{
+  "name": "task3",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "Task3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Task3.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http": "^0.0.1-security",
+    "node-fetch": "^3.3.1",
+    "yup": "^1.2.0"
+  }
+}
